@@ -30,11 +30,15 @@ int main()
 
     int len = sizeof(servaddr);
 
+    printf("\n---------------------------------------\n");
+    printf("This is the Client program. Enter your message. \n(Type 'exit' to exit the client)\n");
     while (1)
     {
+        //Enter what to send to the server
         printf("\nYou (client) : ");
         scanf("%s", buff);
 
+        //check exit condition
         if (strncmp("exit", buff, 4) == 0)
         {
             printf("Client Exit...\n");
@@ -57,23 +61,24 @@ int main()
             perror("Error in recvfrom()");
             exit(1);
         }
-
+        //print client time
         printf("Time: %s", buff);
 
         //clear the buffer
         memset(buff, '\0', sizeof(buff));
 
-        //get the response and time
+        //get the response from server and server response time
         if (recvfrom(sockfd, buff, sizeof(buff), 0, (struct sockaddr *)&servaddr, &len) == -1)
         {
             perror("Error in recvfrom()");
             exit(1);
         }
-
+        //print response and response time
         printf("\nServer : %s", buff);
 
         //clear the buffer
         memset(buff, '\0', sizeof(buff));
     }
+    printf("\n---------------------------------------\n");
     close(sockfd);
 }
