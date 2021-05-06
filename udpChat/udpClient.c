@@ -32,6 +32,8 @@ int main()
     servaddr.sin_port = htons(PORT);
 
     int len = sizeof(servaddr);
+    long double rtt_msec = 0, total_msec = 0;
+    struct timespec time_start, time_end;
 
     printf("\n---------------------------------------\n");
     printf("This is the Client program. Enter your message. \n(Type 'exit' to exit the client)\n");
@@ -49,6 +51,7 @@ int main()
         }
 
         //send message to udpServer
+        clock_gettime(CLOCK_MONOTONIC, &time_start);
         if (sendto(sockfd, buff, sizeof(buff), 0, (struct sockaddr *)&servaddr, len) == -1)
         {
             perror("Error in sendto()");
@@ -76,11 +79,20 @@ int main()
             perror("Error in recvfrom()");
             exit(1);
         }
+        clock_gettime(CLOCK_MONOTONIC, &time_end);
+
         //print response and response time
-        printf("\nServer : %s", buff);
+        printf("\n%s", buff);
 
         //clear the buffer
         memset(buff, '\0', sizeof(buff));
+
+        //print delay
+        double timeElapsed = ((double)(time_end.tv_nsec - time_start.tv_nsec)) / 1000000.0;
+        rtt_msec = (time_end.tv_sec - time_start.tv_sec) * 1000.0 + timeElapsed;
+        printf("\n------------------------------------\n");
+        printf("Delay = %.3Lfms", rtt_msec);
+        printf("\n------------------------------------\n");
     }
     printf("\n---------------------------------------\n");
     close(sockfd);
