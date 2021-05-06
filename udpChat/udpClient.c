@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+#include <arpa/inet.h>
+#include <unistd.h>
 
 #define MAX 1000
 #define PORT 8080
