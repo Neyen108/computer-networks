@@ -14,7 +14,7 @@ int main()
 {
     //Creating socket fd
     int sockfd;
-    if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
+    if ((sockfd = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) < 0)
     {
         perror("Socket creation failed");
         exit(1);
@@ -23,9 +23,8 @@ int main()
     struct sockaddr_in servaddr;
     memset(&servaddr, 0, sizeof(servaddr));
 
-    // Filling server information
     servaddr.sin_family = AF_INET;
-    servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
+    servaddr.sin_addr.s_addr = INADDR_ANY;
     servaddr.sin_port = htons(PORT);
 
     //bind socket

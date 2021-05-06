@@ -16,7 +16,7 @@ int main()
 
     //Creating socket fd
     int sockfd;
-    if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
+    if ((sockfd = socket(PF_INET, SOCK_DGRAM, 0)) < 0)
     {
         perror("Socket creation failed");
         exit(1);
@@ -27,7 +27,7 @@ int main()
 
     // Filling server information
     servaddr.sin_family = AF_INET;
-    servaddr.sin_addr.s_addr = inet_addr("10.0.2.15");
+    servaddr.sin_addr.s_addr = inet_addr("10.0.0.1");
     servaddr.sin_port = htons(PORT);
 
     int len = sizeof(servaddr);
