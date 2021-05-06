@@ -8,6 +8,9 @@
 #define MAX 1000
 #define PORT 8080
 
+//TODO: calculate time delay
+//check servaddr.sin_addr.s_addr
+
 int main()
 {
     char buff[MAX];
@@ -25,7 +28,7 @@ int main()
 
     // Filling server information
     servaddr.sin_family = AF_INET;
-    servaddr.sin_addr.s_addr = INADDR_ANY;
+    servaddr.sin_addr.s_addr = inet_addr("10.0.2.15");
     servaddr.sin_port = htons(PORT);
 
     int len = sizeof(servaddr);
