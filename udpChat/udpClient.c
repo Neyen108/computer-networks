@@ -8,9 +8,6 @@
 #define MAX 1000
 #define PORT 8080
 
-//TODO: calculate time delay
-//check servaddr.sin_addr.s_addr
-
 int main()
 {
     char buff[MAX];
